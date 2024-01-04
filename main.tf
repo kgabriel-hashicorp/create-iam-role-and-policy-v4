@@ -1,6 +1,6 @@
 module "iam-role-and-policy-v4" {
-  source  = "tfe.karla-gabriel.sbx.hashidemos.io/kg-dev/iam-role-and-policy-v4/aws"
-  version = "1.0.0"
+  source    = "tfe.karla-gabriel.sbx.hashidemos.io/kg-dev/iam-role-and-policy-v4/aws"
+  version   = "1.0.0"
   role_name = "kg-dev-iam-role-v4"
 }
 
