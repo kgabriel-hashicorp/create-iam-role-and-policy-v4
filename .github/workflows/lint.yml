@@ -1,0 +1,40 @@
+name: Lint Code
+
+on:
+  pull_request
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Cache TFLint Plugins
+      uses: actions/cache@v3
+      with:
+        path: ~/.tflint.d/plugins
+        key: tflint-${{ hashFiles('.tflint.hcl') }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "1.0.0"
+        cli_config_credentials_token: ${{ secrets.TF_ORG_TOKEN }}
+        cli_config_credentials_hostname: "tfe.karla-gabriel.sbx.hashidemos.io"
+
+    - name: Terraform Init
+      id: init
+      run: terraform init
+
+    - name: Setup TFLint
+      uses: terraform-linters/setup-tflint@v4
+      with:
+        tflint_version: "v0.49.0"
+    - name: TFLint
+      run: |
+        tflint --init
+        tflint --recursive --format=default

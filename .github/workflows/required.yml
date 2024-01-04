@@ -1,0 +1,40 @@
+name: Check Files
+
+on:
+  pull_request
+
+permissions:
+  contents: read
+
+jobs:
+  required:
+    name: Required
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - name: CODEOWNERS Validator
+        env:
+          REPOSITORY_PATH: "."
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHECKS: files
+          EXPERIMENTAL_CHECKS: notowned
+        run: |
+          curl -sfL https://raw.githubusercontent.com/mszostok/codeowners-validator/main/install.sh | sh -s v0.7.4
+          mv ./bin/codeowners-validator /usr/local/bin/codeowners-validator
+          codeowners-validator
+      - name: Check Required Files Exist
+        shell: bash
+        run: |
+            all_exist () {  
+              local filename
+              for filename; do
+                  test -f "$filename" && echo "$filename exists" && continue
+                  echo "$0: $filename does not exist - aborting" >&2
+                  return 1
+              done
+              return 0
+            }
+            all_exist README.md provider.tf backend.tf .amex/buildblocks.yaml

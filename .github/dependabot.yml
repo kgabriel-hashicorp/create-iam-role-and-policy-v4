@@ -1,0 +1,16 @@
+version: 2
+registries:
+  kg-tfe-registry: # Define access for a private registry, https://github.com/github/docs/pull/6808
+    type: terraform-registry
+    url: https://tfe.karla-gabriel.sbx.hashidemos.io
+    token: ${{secrets.TF_ORG_TOKEN}}
+updates:
+  - package-ecosystem: "terraform"
+    directory: "/"
+    registries: "*"
+    schedule:
+      interval: daily
+      time: "07:00"
+      timezone:	US/Central
+    commit-message:
+      prefix: "chore"
