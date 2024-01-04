@@ -23,7 +23,7 @@ Describe what this will be used for
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_iam_role_and_policy_v4"></a> [iam\_role\_and\_policy\_v4](#module\_iam\_role\_and\_policy\_v4) | tfe.karla-gabriel.sbx.hashidemos.io/kg-dev/iam-role-and-policy-v4/aws | 1.0.0 |
+| <a name="module_iam_role_and_policy_v4"></a> [iam\_role\_and\_policy\_v4](#module\_iam\_role\_and\_policy\_v4) | tfe.karla-gabriel.sbx.hashidemos.io/kg-dev/iam-role-and-policy-v4/aws | 1.0.1 |
 | <a name="module_test_s3_bucket"></a> [test\_s3\_bucket](#module\_test\_s3\_bucket) | terraform-aws-modules/s3-bucket/aws | 3.14.1 |
 
 ## Resources
